@@ -1,4 +1,4 @@
-name: Release CLI Macos 11
+name: Release CLI Macos 13
 on:
   workflow_dispatch:
 
