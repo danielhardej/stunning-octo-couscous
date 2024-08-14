@@ -28,7 +28,7 @@ jobs:
 
             - name: Run input tests
               run: |
-                echo "GitHub context: ${{ github.event }}"
+                echo "GitHub event context: ${{ toJson(github.event) }}"
                 echo "Release kind (using the github context): ${{ github.event.inputs.release_kind }}"
                 echo "Release kind (using the input context): ${{ inputs.release_kind }}"
                 echo "Dry run (using the github context): ${{ github.event.inputs.dry-run }}"
