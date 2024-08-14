@@ -1,0 +1,34 @@
+name: Input testing workflow
+
+on:
+    workflow_dispatch:
+      inputs:
+        release_kind:
+          type: choice
+          description: The type of release.
+          default: prerelease
+          required: true
+          options:
+            - prerelease
+            - start-rc
+            - stable
+        dry-run:
+          type: boolean
+          description: Dry Run, If true, do not publish release to GitHub.
+          default: true
+          required: false
+
+jobs:
+    input-tests:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Run input tests
+              run: |
+                echo "Release kind (using the github context): ${{ github.event.inputs.release_kind }}"
+                echo "Release kind (using the input context): ${{ inputs.release_kind }}"
+                echo "Dry run (using the github context): ${{ github.event.inputs.dry-run }}"
+                echo "Dry run (using the input context): ${{ inputs.dry-run }}"
