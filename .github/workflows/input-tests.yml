@@ -28,7 +28,24 @@ jobs:
 
             - name: Run input tests
               run: |
+                echo "GitHub event context: ${{ toJson(github) }}"
+                echo "GitHub event payload: ${{ toJson(github.event.client_payload) }}"
+                echo "Inputs context: ${{ toJson(inputs) }}"
                 echo "Release kind (using the github context): ${{ github.event.inputs.release_kind }}"
                 echo "Release kind (using the input context): ${{ inputs.release_kind }}"
                 echo "Dry run (using the github context): ${{ github.event.inputs.dry-run }}"
                 echo "Dry run (using the input context): ${{ inputs.dry-run }}"
+    
+    publish-release-gh-context:
+        if: ${{ !github.event.inputs.dry-run }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Run input tests
+              run: echo "Publishing release from GitHub context"
+    
+    publish-release-input-context:
+        if: ${{ !inputs.dry-run }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Run input tests
+              run: echo "Publishing release from input context"
