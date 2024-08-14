@@ -28,10 +28,11 @@ jobs:
 
             - name: Run input tests
               run: |
+                echo "GitHub context: ${{ github.event }}"
                 echo "Release kind (using the github context): ${{ github.event.inputs.release_kind }}"
                 echo "Release kind (using the input context): ${{ inputs.release_kind }}"
-                echo "Dry run (using the github context): ${{ github.event.inputs.dry-run }}\t Type: ${{ github.event.inputs.dry-run.type }}"
-                echo "Dry run (using the input context): ${{ inputs.dry-run }}\t Type: ${{ inputs.dry-run.type }}"
+                echo "Dry run (using the github context): ${{ github.event.inputs.dry-run }}"
+                echo "Dry run (using the input context): ${{ inputs.dry-run }}"
     
     publish-release-gh-context:
         if: ${{ !github.event.inputs.dry-run }}
